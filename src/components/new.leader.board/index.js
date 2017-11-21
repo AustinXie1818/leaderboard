@@ -14,17 +14,17 @@ class NewLeaderBoard extends React.Component {
     super(props);
     this.state = {
       name: 'New Leader Board',
-      tournaments: [{id: 't1', label: 'TOURNAMENT 1'}, {id: 't2', label: 'TOURNAMENT 2'}],
+      tournaments: [{id: 't0', label: 'TOURNAMENT 1'}, {id: 't1', label: 'TOURNAMENT 2'}],
       players: [
         {
           name: 'player1',
-          't1': 1,
-          't2': 2
+          't0': 1,
+          't1': 2
         },
         {
           name: 'player2',
-          't1': 2,
-          't2': 1
+          't0': 2,
+          't1': 1
         }
       ],
     };
@@ -32,6 +32,7 @@ class NewLeaderBoard extends React.Component {
     this.isString           = this.isString.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
+    this.addTournament = this.addTournament.bind(this);
   }
 
   handleBoardChange(value) {
@@ -50,6 +51,16 @@ class NewLeaderBoard extends React.Component {
       newPlayer[tournament] = 'score ?';
     });
     this.state.players.push(newPlayer);
+    this.setState(this.state);
+  }
+
+  addTournament(e) {
+    const colSize = this.state.tournaments.length;
+    this.state.tournaments.push({id: `t${colSize}`, label: `TOURNAMENT ${colSize + 1}`});
+    this.state.players.forEach((player) => {
+      player[`t${colSize}`] = 'Score?'
+    });
+
     this.setState(this.state);
   }
 
@@ -135,7 +146,8 @@ class NewLeaderBoard extends React.Component {
 
         <br/>
 
-        <Button bsStyle="success" onClick={this.addPlayer}>Success</Button>
+        <Button bsStyle="success" onClick={this.addPlayer}>add another row</Button>
+        <Button bsStyle="success" onClick={this.addTournament}>add another column</Button>
       </div>
     );
   }
