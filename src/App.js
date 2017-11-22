@@ -27,31 +27,31 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Navbar inverse collapseOnSelect>
-            <Navbar.Header>
-              <Navbar.Brand>
-                <a href="#">BIG DUX</a>
-              </Navbar.Brand>
-              <Navbar.Toggle />
-            </Navbar.Header>
-            <Navbar.Collapse>
-              <Nav pullRight>
-                <Route path="/visitor" component={BoardVisitorMenu}/>
-                <Route path="/user" component={BoardUserMenu}/>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
+        <Router>
+          <div className="App">
+            <Navbar inverse collapseOnSelect>
+              <Navbar.Header>
+                <Navbar.Brand>
+                  <a href="#">BIG DUX</a>
+                </Navbar.Brand>
+                <Navbar.Toggle />
+              </Navbar.Header>
+              <Navbar.Collapse>
+                <Nav pullRight>
+                  <Route path="/visitor" component={BoardVisitorMenu}/>
+                  <Route path="/user" component={BoardUserMenu}/>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
 
-          <div className="App-intro">
+            <div className="App-intro">
 
-            <Route exact path="/user" component={UserHome} />
-            <Route path="/user/new" component={NewLeaderBoard} />
+              <Route exact path="/user" component={UserHome} />
+              <Route path="/user/new" component={NewLeaderBoard} />
 
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
       </Provider>
     );
   }

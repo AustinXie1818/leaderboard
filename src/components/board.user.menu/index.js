@@ -23,7 +23,7 @@ class UserMenu extends React.Component {
 
   clickNewBoard(e) {
     e.preventDefault();
-    this.props.newBoardActionCreators.newBoardAction({name: 'New Board2', players: []});
+    this.props.newBoardActionCreators.newBoardAction({ name: 'New Leader Board', tournaments: [], players: [{name: 'player1'}] });
     const { history } = this.props;
     history.push('/user/new');
   }

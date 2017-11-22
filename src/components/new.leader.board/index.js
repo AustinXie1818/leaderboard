@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek';
+import { RIEInput } from 'riek';
 
 import _ from 'lodash';
 
@@ -9,30 +9,24 @@ import { Button } from 'react-bootstrap';
 
 import './new.leader.board.css';
 
+import  { bindActionCreators } from 'redux';
+import  { connect } from 'react-redux';
+
+import newBoardActionCreators from '../../actions/new.board.action.creator';
+
+const mapDispatchToState = (dispatch) => ({ newBoardActionCreators: bindActionCreators(newBoardActionCreators, dispatch) });
+
+
 class NewLeaderBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: 'New Leader Board',
-      tournaments: [{id: 't0', label: 'TOURNAMENT 1'}, {id: 't1', label: 'TOURNAMENT 2'}],
-      players: [
-        {
-          name: 'player1',
-          't0': 1,
-          't1': 2
-        },
-        {
-          name: 'player2',
-          't0': 2,
-          't1': 1
-        }
-      ],
-    };
-
     this.isString           = this.isString.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
     this.addTournament = this.addTournament.bind(this);
+    this.saveNewTournament = this.saveNewTournament.bind(this);
+
+    this.state = props.newBoard;
   }
 
   handleBoardChange(value) {
@@ -48,7 +42,7 @@ class NewLeaderBoard extends React.Component {
     };
 
     this.state.tournaments.forEach((tournament) => {
-      newPlayer[tournament] = 'score ?';
+      newPlayer[tournament.id] = 'score ?';
     });
     this.state.players.push(newPlayer);
     this.setState(this.state);
@@ -62,6 +56,10 @@ class NewLeaderBoard extends React.Component {
     });
 
     this.setState(this.state);
+  }
+
+  saveNewTournament() {
+    this.props.newBoardActionCreators.saveNewBoardAction(this.state);
   }
 
   isString(text) {
@@ -146,12 +144,13 @@ class NewLeaderBoard extends React.Component {
 
         <br/>
 
-        <Button bsStyle="success" onClick={this.addPlayer}>add another row</Button>
-        <Button bsStyle="success" onClick={this.addTournament}>add another column</Button>
+        <Button bsStyle="success" onClick={this.addPlayer}>add another row</Button>&nbsp;&nbsp;&nbsp;
+        <Button bsStyle="success" onClick={this.addTournament}>add another column</Button>&nbsp;&nbsp;&nbsp;
+        <Button bsStyle="success" onClick={this.saveNewTournament}>SAVE</Button>
       </div>
     );
   }
 
 }
 
-export default NewLeaderBoard;
+export default connect((state) => state, mapDispatchToState)(NewLeaderBoard);
